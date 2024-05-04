@@ -1,0 +1,46 @@
+[package]
+name = "physical-simulation"
+version = "0.1.0"
+edition = "2021"
+authors = ["Neil Allavarpu"]
+description = "A physical simulation with graphical rendering"
+repository = "https://github.com/NeilAllavarpu/physical-simulation"
+readme = "README.md"
+categories = ["rendering", "wasm", "graphics"]
+keywords = ["physics", "simulation", "graphics"]
+
+[lints.clippy]
+correctness = { level = "deny", priority = -1 }
+suspicious = { level = "deny", priority = -1 }
+complexity = { level = "warn", priority = -1 }
+perf = { level = "warn", priority = -1 }
+style = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+restriction = { level = "warn", priority = -1 }
+blanket_clippy_restriction_lints = "allow"
+std_instead_of_alloc = "allow"
+question_mark_used = "allow"
+implicit_return = "allow"
+single_call_fn = "allow"
+
+[package.metadata.wasm-pack.profile.dev]
+wasm-opt = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+winit = "0.30.0"
+env_logger = "0.11.3"
+log = "0.4"
+wgpu = "0.20.0"
+pollster = "0.3.0"
+
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+console_error_panic_hook = "0.1.6"
+console_log = "1.0"
+wgpu = { version = "0.20", features = ["webgl"] }
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4.30"
+web-sys = { version = "0.3", features = ["Document", "Window", "Element"] }
